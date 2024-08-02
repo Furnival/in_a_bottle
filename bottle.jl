@@ -139,7 +139,7 @@ begin
 	    data["model"] = "mistral"
 	    data["prompt"]= question
 	    data["stream"]= false  # turning off streaming response.
-	    data["temperature"] = 0.9
+	    data["temperature"] = 0.0
 	    return JSON.json(data)
 	end
 	
