@@ -37,7 +37,100 @@ run(mycommand);
 # ╔═╡ bcdda97e-c789-4d41-b298-2a237669ed7b
 readchomp(`echo hello`)
 
-# ╔═╡ 27c68cc3-c912-43b6-a603-4744e963682e
+# ╔═╡ d276fe59-2635-4de2-b7b4-f7eb503faeb2
+ollama_wg = `ollama run llama3.1 "generate a matrix wargame scenario about election cyber security in markdown format with sections for Background, Objectives, Starting Situation, Players, and Potential Actions"`
+
+# ╔═╡ 8e08aec6-a9aa-43de-a09e-4693648dbba1
+ollamatest2 = `ollama run llama3.1 "why is the sky blue"`
+
+# ╔═╡ 6119051d-e155-4a44-8424-46e5679d1d72
+matrix = String(readchomp(ollama_wg))
+
+# ╔═╡ e9893ab0-6649-4507-9fcc-3025b51963a1
+open("/Users/furnival/Documents/GitHub/in_a_bottle/matrix.md", "w") do f
+    write(f, matrix)
+end
+
+# ╔═╡ c0666883-ae5c-45ae-89d4-1c4e376e968a
+run(`open ./matrix.md`)
+
+# ╔═╡ bfc86f31-f176-455b-b49f-522980cf21b8
+matrix
+
+# ╔═╡ bf2b5f84-5387-4eb9-bc56-bfbd8ba71cf0
+m_title = match(r"\*\*([^\*]+)\*\*", matrix)
+
+# ╔═╡ 96500d59-afd5-483c-8acd-554e6ad871dd
+m_title[1]
+# if isnothing(m_title[1]) # or just not match? isnothing(m_title)
+#   print out something?
+# end
+# checkfornothing(m_title) return an alert for now? OK, NOK?
+
+# ╔═╡ d7da5324-9f75-4228-9b59-12c94d4a87a2
+wgame = Dict("title" => m_title[1])
+
+# ╔═╡ c9ceaa6a-c73c-4504-96ce-ab389e0a5a26
+#  wgame["title"] =  m_title[1]
+
+# ╔═╡ c16bc75c-2db1-486f-92c7-91bea700676d
+m_background = match(r"###\s+\**Background\**\s*\n+[=\-]*\n*([^#]+)", matrix)
+
+# ╔═╡ 7f7e20a8-d409-406f-9179-e71bee167cf7
+wgame["background"] = m_background[1]
+# need to detect empty value
+
+# ╔═╡ e786eea2-6da6-47d9-8f82-4ca285f389a0
+m_objectives = match(r"###\s+\**Objectives\**\s*\n+[\-=]*\n*([^#]+)", matrix)
+
+# ╔═╡ 7b32de9b-b46e-45d9-9502-ed71067df8a2
+wgame["objectives"] = m_objectives[1]
+
+# ╔═╡ 0db0dec6-4d5f-4ce7-a6ea-d5a7851cc3e2
+m_situation = match(r"###\s+\**Starting Situation\**\s*\n+[\-=]*\n*([^#]+)", matrix)
+
+# ╔═╡ 868f3a4c-ac15-425e-9fc1-d3aa4ce381a7
+wgame["situation"] = m_situation[1]
+
+# ╔═╡ ca167e10-94a0-412d-ae06-c203d38140a4
+m_players = match(r"###\s+\**Players\**\s*\n+[\-=]*\n*([^#]+)", matrix)
+
+# ╔═╡ e07775b3-0832-4433-8706-b4b05eeab3a4
+m_players[1]
+# need to parse and count players
+
+# ╔═╡ b37cc3f7-e882-4e82-a35c-958c7756e774
+m_actions = match(r"###\s+\**Potential Actions\**\s*\n+[\-=]*\n*([^#]+)", matrix)
+
+# ╔═╡ 7c71719b-f7e7-4dda-ab02-c1b790e47543
+m_actions[1]
+
+# ╔═╡ 336ce6d6-a0c0-4dae-8e0d-a9650e6d5962
+md"------------"
+
+# ╔═╡ d03ee3bd-783f-42f4-9ff8-5a94949244d0
+begin
+	wargame = Dict( "name" => "Election Cyber Security War Game Scenario",
+	"story so far" => "Blueteam is not alert and does not know Redteam is attacking. ")
+ 
+	redteam = Dict{String, String}("name" => "Russian state sponsored hackers", "character" => "Aggressive but subtle", "goal" => "Not to change election results but to give the American public the impression that the election results cannot be trusted", "strategy" => "To plant evidence of corrupt dealings with local election officials in many states" )
+	
+	redteam["example1"] = "The redteam phishes the top Democratic leadership and gains root access to the chairman's email and desktop computer. This is successful because the leadership has not taken the time to complete anti-phishing training that is available."
+	
+	redteam["example2"] = "The redteam inserts trojans in a game that the teenaged son of a top Democratic party worker uses on his mother's computer at work and thus gains full root access to a top Democratic worker's computer. This succeeds because workers are encouraged to bring children to work but the workers are busy and there is no childcare." 
+	
+	
+end
+
+# ╔═╡ e39d5946-92e6-46ed-ac37-1b891e6a9331
+prompt_string = """
+Given that you are playing a wargame called $(wargame["name"]) and you are $(redteam["name"]) with the general character of $(redteam["character"]) and the goal of $(redteam["goal"]) and a summary of the game so far is $(wargame["story so far"]), and your general strategy is $(redteam["strategy"]). Example moves might be "$(redteam["example1"]), "$(redteam["example2"]). What would your next move be? Answer in two sentences describing the move and two describing why is it likely to succeed.
+"""
+
+# ╔═╡ d6721217-665d-4232-88da-8655426d81c1
+
+
+# ╔═╡ b1e27c97-8048-4548-a80d-317d210ce6b1
 begin
 	url = "http://localhost:11434/api/generate"
 	
@@ -46,11 +139,11 @@ begin
 	    data["model"] = "mistral"
 	    data["prompt"]= question
 	    data["stream"]= false  # turning off streaming response.
-	    data["temperature"] = 0.0
+	    data["temperature"] = 0.9
 	    return JSON.json(data)
 	end
 	
-	data = update_prompt("write julia code to find out today's date using Dates package")
+	data = update_prompt(prompt_string)
 	res  = HTTP.request("POST",url,[("Content-type","application/json")],data)
 	if res.status == 200
 	    body = JSON.parse(String(res.body))
@@ -59,11 +152,106 @@ begin
 	end
 end
 
-# ╔═╡ d276fe59-2635-4de2-b7b4-f7eb503faeb2
-ollamatest = `ollama run llama3 "Why is the sky blue?"`
+# ╔═╡ d1af6480-afaf-4415-b389-35de2375ea35
+open("/Users/furnival/Documents/GitHub/in_a_bottle/matrix.md", "a") do filehandle
+       write(filehandle, "\n" * body["response"])
 
-# ╔═╡ 6119051d-e155-4a44-8424-46e5679d1d72
-String(readchomp(ollamatest))
+end  
+
+# ╔═╡ 9393b849-518f-43cc-9b72-6bd09c91f5ba
+md"""
+1. "Redteam creates a fake news article implicating several local election officials in various corrupt activities, manipulating the content to appear on popular news websites that are frequently visited by the American public." This move is likely to succeed because of the widespread trust in online media and the lack of vigilance among internet users regarding the authenticity of news articles.
+
+2. "Redteam uses advanced social engineering tactics to disseminate the fake news article through a network of bots, trolls, and compromised accounts on various social media platforms." This move is likely to succeed due to the vast reach of social media networks and the susceptibility of users to believe information shared by their peers or perceived authority figures.
+
+------------
+
+1. "Redteam disguises themselves as a cybersecurity firm offering a free security audit for the Democratic Party, gaining access to their network infrastructure. This is likely to succeed because, despite previous breaches, the party may view this offer as an opportunity to improve their security measures."
+
+2. "Redteam creates and disseminates leaked emails among various political groups and social media platforms, hinting at the existence of incriminating evidence against local election officials. This is likely to succeed because it will sow distrust among the public about the integrity of the election process, aligning with our goal."
+
+------------
+Next Move: "Redteam creates a sophisticated forgery of an email conversation between the top Democratic leadership and local election officials, discussing secret deals in exchange for vote manipulation. This email is then planted in the compromised chairman's email account."
+
+   Reason for Success: 1) The timing of the forgery's release could coincide with a crucial election period, maximizing its impact on public perception. 2) The content of the forgery is plausibly deniable, making it difficult for Blueteam to definitively prove its authenticity or lack thereof, thereby sowing doubt in the integrity of the election process.
+
+*CHANGED TEMPTRATURE TO: 0.9*\
+ Next Move: "The redteam disguises the trojan as a harmless software update for the voting systems used in several key battleground states, thereby gaining unauthorized access to the systems."
+
+   Reason for Success: 1) Voting system providers may neglect regular security updates or rely on third-party vendors, making them vulnerable to such disguised attacks. 2) The lack of transparency and standardization in voting systems across various states could lead to different levels of vigilance and preparedness, creating an uneven defense landscape that the redteam can exploit.
+
+"""
+
+# ╔═╡ 41795788-a81c-4e73-bf73-e4123aee56ff
+md"""
+--------
+### TODO
+"""
+
+# ╔═╡ 2c2fc88a-9204-4904-b435-91be3c1f846f
+md"""
+#### Next
+```
+[x] - build a red query template with story_so_far and multishot moves
+[ ] - ask minstral to make a move for red (suggest 4 proposed moves?)
+[ ] - save to story_so_far, ask ollama for summary now? and write to file
+[ ] - ask llama3.1 to make argument from blue against (propose 4 counters?)
+[ ] - I judge arguments and roll dice. Switch to blue. write to story_so_far
+```
+"""
+
+# ╔═╡ 8c0eb3be-adbb-4d28-ade9-139e091eac2f
+md"""
+```
+Given that you are playing a wargame called $wargame_name and you are $redteam["name"] with the general character of $redteam["character"] and the goal of $redteam["goal"] and a summary of the game so far is $story_so_far, and your general strategy is $redteam["strategy"]. Example moves might be $redteam["example"][1], $redteam["example"][2]. What would your next move be? Answer in two sentences describing the move and two describing why is it likely to succeed.
+```
+"""
+
+# ╔═╡ b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
+md"""
+- scenario generation from API returning in markdown (v2 = json?)
+- parse scenario into:
+	1. Scenario name
+	2. Background
+	3. Objectives
+	4. Starting Situation
+	5. Potential Actions
+	6. Players (number and names)
+	? -> 7. Long term strategy for each player
+#### maybe
+
+	- Sample arguments
+	- Ajudication guidelines
+	- How many rounds
+	- Potential strategies/ resources
+
+#### combine with:
+	- "story so far"
+"""
+
+# ╔═╡ 6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
+md"""
+scenario generation prompt:
+
+	generate a matrix wargame scenario about election cyber security in markdown format with sections for Background, Objectives, Starting Situation, Players, and Potential Actions 
+"""
+
+# ╔═╡ 223feab8-e513-46b5-8522-986887de1f5c
+md"""
+--------
+## Utilities
+---------
+"""
+
+# ╔═╡ 41bc4d06-a371-4178-a93d-b06ed471a926
+md"""
+### parsing utilites
+- `parse_scenario() i.e. -> current_scenario{"red_goals"}`
+- `current_scenario = Dict{String, String}("red_goals" => red, "blue_goals" => blue, "red_name" => "red", "blue_name" => "blue")`
+- test for empty values or non matching - need to harden regex to accept variations
+- player Goals = Objectives so change back?
+- need player characters (aggressive, calm, etc.)
+"""
 
 # ╔═╡ c819351f-c2c2-4007-b8ae-ee2d4a1be776
 md"""
@@ -79,6 +267,18 @@ curl http://localhost:11434/api/generate -d '{
 }'
 ```
 """
+
+# ╔═╡ 34a3c50c-8d9a-4b2e-ab31-b50a1012aa36
+md"""
+```
+open("/tmp/t.txt", "w") do f
+    write(f, "A, B, C, D\n")
+end
+```
+"""
+
+# ╔═╡ d3eb63a4-5a93-4293-8a97-f7045f0b8427
+
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -288,9 +488,42 @@ version = "1.2.13+1"
 # ╠═91c90352-e0f5-4a7f-b2ab-0351f3449cf9
 # ╠═fd85b6bf-dba3-43f8-a53d-0a4fa8288408
 # ╠═bcdda97e-c789-4d41-b298-2a237669ed7b
-# ╠═27c68cc3-c912-43b6-a603-4744e963682e
 # ╠═d276fe59-2635-4de2-b7b4-f7eb503faeb2
+# ╠═8e08aec6-a9aa-43de-a09e-4693648dbba1
 # ╠═6119051d-e155-4a44-8424-46e5679d1d72
+# ╠═e9893ab0-6649-4507-9fcc-3025b51963a1
+# ╠═c0666883-ae5c-45ae-89d4-1c4e376e968a
+# ╠═bfc86f31-f176-455b-b49f-522980cf21b8
+# ╠═bf2b5f84-5387-4eb9-bc56-bfbd8ba71cf0
+# ╠═96500d59-afd5-483c-8acd-554e6ad871dd
+# ╠═d7da5324-9f75-4228-9b59-12c94d4a87a2
+# ╠═c9ceaa6a-c73c-4504-96ce-ab389e0a5a26
+# ╠═c16bc75c-2db1-486f-92c7-91bea700676d
+# ╠═7f7e20a8-d409-406f-9179-e71bee167cf7
+# ╠═e786eea2-6da6-47d9-8f82-4ca285f389a0
+# ╠═7b32de9b-b46e-45d9-9502-ed71067df8a2
+# ╠═0db0dec6-4d5f-4ce7-a6ea-d5a7851cc3e2
+# ╠═868f3a4c-ac15-425e-9fc1-d3aa4ce381a7
+# ╠═ca167e10-94a0-412d-ae06-c203d38140a4
+# ╠═e07775b3-0832-4433-8706-b4b05eeab3a4
+# ╠═b37cc3f7-e882-4e82-a35c-958c7756e774
+# ╠═7c71719b-f7e7-4dda-ab02-c1b790e47543
+# ╟─336ce6d6-a0c0-4dae-8e0d-a9650e6d5962
+# ╟─d03ee3bd-783f-42f4-9ff8-5a94949244d0
+# ╠═e39d5946-92e6-46ed-ac37-1b891e6a9331
+# ╠═d6721217-665d-4232-88da-8655426d81c1
+# ╠═b1e27c97-8048-4548-a80d-317d210ce6b1
+# ╠═d1af6480-afaf-4415-b389-35de2375ea35
+# ╟─9393b849-518f-43cc-9b72-6bd09c91f5ba
+# ╟─41795788-a81c-4e73-bf73-e4123aee56ff
+# ╟─2c2fc88a-9204-4904-b435-91be3c1f846f
+# ╟─8c0eb3be-adbb-4d28-ade9-139e091eac2f
+# ╠═b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
+# ╠═6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
+# ╟─223feab8-e513-46b5-8522-986887de1f5c
+# ╠═41bc4d06-a371-4178-a93d-b06ed471a926
 # ╠═c819351f-c2c2-4007-b8ae-ee2d4a1be776
+# ╠═34a3c50c-8d9a-4b2e-ab31-b50a1012aa36
+# ╠═d3eb63a4-5a93-4293-8a97-f7045f0b8427
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
