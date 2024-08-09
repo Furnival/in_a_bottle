@@ -18,14 +18,65 @@ md"""
 
 # ╔═╡ 53b2c048-197c-4d55-b250-cb901a2297db
 md"""
+## Todo
+Thinking about interface:\
+
+- would like a [Windrift](https://windrift.app) style like Lisa Daly's [Stone Harbor](https://stoneharborgame.com) 
+- ease and flow and lack of distraction, comfort of book-like interface. Not 100% on this but worth a try. 
+- Thinking that local server and [htmx](https://htmx.org) is a simple way to go. Mock up a trial with static generated content with [Oxygen.jl](https://github.com/OxygenFramework/Oxygen.jl)
+
+"""
+
+# ╔═╡ acb6542c-21b3-4137-92e0-ec1ca95162a3
+md"""
 ```
-## TODO
-[ ] - test commandline for AI from notebook   
-[ ] - trial templates for prompt engineering  
-[ ] - scenarios for wargames
+[x] - get local server running with oxygen   
+[x] - add htmx source file to server and load and test with simple markup  
+[ ] - improve test htmx to make it Windrift-like
+[ ] - make querystrings -> responses with ollama at commandline
+[ ] - mock up trial interface and ask testers to use it.
+[ ] - parse ollama replies for get structured responses
+[ ] - template content replies in mustashe
+[ ] - logging and 'story-so-far'
+[ ] - if LLM generates markdown, how to convert?
 ```
-[commandline](https://docs.julialang.org/en/v1/manual/running-external-programs/) - external program notes  \
-[ollama api docs](https://github.com/ollama/ollama/blob/main/docs/api.md)
+- NGINX for proxy for https?\
+- [Use edit text in place](https://htmx.org/examples/click-to-edit/): for entering arbitrary text - how to pick up changes on server? is a post.\
+- 
+"""
+
+# ╔═╡ 85dc48af-0a95-4a68-85c4-7687c0a276c9
+md"""
+### Server
+"""
+
+# ╔═╡ b6ad416e-8e84-4ac1-9b5c-602b569fa3b5
+md"""
+- problem: css and centering quote text and button. 
+"""
+
+# ╔═╡ 6bc76bcb-5893-4a88-ae69-352d1b7a08a2
+md"""
+[localhost](http://127.0.0.1:8080) -- testing Oxygen server
+- [hello_world in text](http://127.0.0.1:8080/greet/)
+- [hello_world in html](http://127.0.0.1:8080/html/)
+- [add by paths](http://127.0.0.1:8080/add/3/4/)
+- [return GET queries](http://127.0.0.1:8080/query?name1=value1&name2=value2)
+- [return GET queries 2](http://127.0.0.1:8080/query2?a=5&message=aString)
+- [first page](http://127.0.0.1:8080/story)
+
+"""
+
+# ╔═╡ e71a80e1-502d-4299-b054-a204f5414500
+
+
+# ╔═╡ d8c4877c-6962-4565-99de-9cfe906b0268
+md"""
+`<script src="utils/htmx.min.js"></script>` - not working - stuff cached?
+
+`<script src="https://unpkg.com/htmx.org@2.0.1"></script>`
+
+`html {scroll-behavior: smooth;}`
 """
 
 # ╔═╡ 91c90352-e0f5-4a7f-b2ab-0351f3449cf9
@@ -182,15 +233,9 @@ Next Move: "Redteam creates a sophisticated forgery of an email conversation bet
 
 """
 
-# ╔═╡ 41795788-a81c-4e73-bf73-e4123aee56ff
-md"""
---------
-### TODO
-"""
-
 # ╔═╡ 2c2fc88a-9204-4904-b435-91be3c1f846f
 md"""
-#### Next
+#### Maybe
 ```
 [x] - build a red query template with story_so_far and multishot moves
 [ ] - ask minstral to make a move for red (suggest 4 proposed moves?)
@@ -198,42 +243,6 @@ md"""
 [ ] - ask llama3.1 to make argument from blue against (propose 4 counters?)
 [ ] - I judge arguments and roll dice. Switch to blue. write to story_so_far
 ```
-"""
-
-# ╔═╡ 8c0eb3be-adbb-4d28-ade9-139e091eac2f
-md"""
-```
-Given that you are playing a wargame called $wargame_name and you are $redteam["name"] with the general character of $redteam["character"] and the goal of $redteam["goal"] and a summary of the game so far is $story_so_far, and your general strategy is $redteam["strategy"]. Example moves might be $redteam["example"][1], $redteam["example"][2]. What would your next move be? Answer in two sentences describing the move and two describing why is it likely to succeed.
-```
-"""
-
-# ╔═╡ b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
-md"""
-- scenario generation from API returning in markdown (v2 = json?)
-- parse scenario into:
-	1. Scenario name
-	2. Background
-	3. Objectives
-	4. Starting Situation
-	5. Potential Actions
-	6. Players (number and names)
-	? -> 7. Long term strategy for each player
-#### maybe
-
-	- Sample arguments
-	- Ajudication guidelines
-	- How many rounds
-	- Potential strategies/ resources
-
-#### combine with:
-	- "story so far"
-"""
-
-# ╔═╡ 6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
-md"""
-scenario generation prompt:
-
-	generate a matrix wargame scenario about election cyber security in markdown format with sections for Background, Objectives, Starting Situation, Players, and Potential Actions 
 """
 
 # ╔═╡ 223feab8-e513-46b5-8522-986887de1f5c
@@ -268,6 +277,13 @@ curl http://localhost:11434/api/generate -d '{
 ```
 """
 
+# ╔═╡ 8c0eb3be-adbb-4d28-ade9-139e091eac2f
+md"""
+```
+Given that you are playing a wargame called $wargame_name and you are $redteam["name"] with the general character of $redteam["character"] and the goal of $redteam["goal"] and a summary of the game so far is $story_so_far, and your general strategy is $redteam["strategy"]. Example moves might be $redteam["example"][1], $redteam["example"][2]. What would your next move be? Answer in two sentences describing the move and two describing why is it likely to succeed.
+```
+"""
+
 # ╔═╡ 34a3c50c-8d9a-4b2e-ab31-b50a1012aa36
 md"""
 ```
@@ -278,7 +294,39 @@ end
 """
 
 # ╔═╡ d3eb63a4-5a93-4293-8a97-f7045f0b8427
+md"""
+[commandline](https://docs.julialang.org/en/v1/manual/running-external-programs/) - external program notes  \
+[ollama api docs](https://github.com/ollama/ollama/blob/main/docs/api.md)
+"""
 
+# ╔═╡ 6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
+md"""
+scenario generation prompt:
+
+	generate a matrix wargame scenario about election cyber security in markdown format with sections for Background, Objectives, Starting Situation, Players, and Potential Actions 
+"""
+
+# ╔═╡ b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
+md"""
+- scenario generation from API returning in markdown (v2 = json?)
+- parse scenario into:
+	1. Scenario name
+	2. Background
+	3. Objectives
+	4. Starting Situation
+	5. Potential Actions
+	6. Players (number and names)
+	? -> 7. Long term strategy for each player
+#### maybe
+
+	- Sample arguments
+	- Ajudication guidelines
+	- How many rounds
+	- Potential strategies/ resources
+
+#### combine with:
+	- "story so far"
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -485,6 +533,12 @@ version = "1.2.13+1"
 # ╟─84a108b0-4900-11ef-21cd-1d92dd9840a0
 # ╠═7397dab7-ae5b-4994-9129-6c05e14c7e37
 # ╟─53b2c048-197c-4d55-b250-cb901a2297db
+# ╟─acb6542c-21b3-4137-92e0-ec1ca95162a3
+# ╟─85dc48af-0a95-4a68-85c4-7687c0a276c9
+# ╠═b6ad416e-8e84-4ac1-9b5c-602b569fa3b5
+# ╠═6bc76bcb-5893-4a88-ae69-352d1b7a08a2
+# ╠═e71a80e1-502d-4299-b054-a204f5414500
+# ╠═d8c4877c-6962-4565-99de-9cfe906b0268
 # ╠═91c90352-e0f5-4a7f-b2ab-0351f3449cf9
 # ╠═fd85b6bf-dba3-43f8-a53d-0a4fa8288408
 # ╠═bcdda97e-c789-4d41-b298-2a237669ed7b
@@ -515,15 +569,14 @@ version = "1.2.13+1"
 # ╠═b1e27c97-8048-4548-a80d-317d210ce6b1
 # ╠═d1af6480-afaf-4415-b389-35de2375ea35
 # ╟─9393b849-518f-43cc-9b72-6bd09c91f5ba
-# ╟─41795788-a81c-4e73-bf73-e4123aee56ff
 # ╟─2c2fc88a-9204-4904-b435-91be3c1f846f
-# ╟─8c0eb3be-adbb-4d28-ade9-139e091eac2f
-# ╠═b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
-# ╠═6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
 # ╟─223feab8-e513-46b5-8522-986887de1f5c
 # ╠═41bc4d06-a371-4178-a93d-b06ed471a926
-# ╠═c819351f-c2c2-4007-b8ae-ee2d4a1be776
-# ╠═34a3c50c-8d9a-4b2e-ab31-b50a1012aa36
-# ╠═d3eb63a4-5a93-4293-8a97-f7045f0b8427
+# ╟─c819351f-c2c2-4007-b8ae-ee2d4a1be776
+# ╟─8c0eb3be-adbb-4d28-ade9-139e091eac2f
+# ╟─34a3c50c-8d9a-4b2e-ab31-b50a1012aa36
+# ╟─d3eb63a4-5a93-4293-8a97-f7045f0b8427
+# ╠═6d71ba9a-4f91-42ad-8ea6-60f0be9d3307
+# ╠═b21660b7-e4d5-4d19-b0f3-bdc5100d9f36
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

@@ -1,68 +1,59 @@
-Here is a matrix wargame scenario about election cyber security:
-
-**Election Cyber Security Wargame Scenario**
-=============================================
+**Matrix Wargame Scenario: Election Cyber Security**
+==============================================
 
 ### Background
-------------
+-----------------------------------
 
-In the wake of increasing concerns over election integrity, the government has decided to hold a national exercise to test the preparedness of state and local officials in protecting their electoral systems from cyber threats. The exercise will simulate a fictional presidential election scenario where a foreign adversary is attempting to interfere with the outcome.
+In the year 2024, the United States is on the cusp of a highly contested presidential election. As concerns about cyber security grow, both major parties have established dedicated teams to protect their electoral systems from potential threats.
+
+Two rival factions, the **Blue Team** and the **Red Team**, each composed of skilled cybersecurity professionals and politicians, will engage in a high-stakes game of cat-and-mouse. The goal is to outmaneuver one another while ensuring the integrity of the electoral process.
 
 ### Objectives
-------------
+-----------------
 
-* **Government**: To identify vulnerabilities in the electoral system and assess the effectiveness of current security measures.
-* **State and Local Officials**: To demonstrate their ability to respond to a cyber attack on their electoral systems and protect the integrity of the election process.
-* **Foreign Adversary**: To test the resilience of the electoral system against sophisticated cyber attacks.
+*   **Blue Team:** Protect the electoral system from cyber attacks, ensure the accuracy and security of voting results, and maintain public confidence in the democratic process.
+*   **Red Team:** Disrupt the electoral system through targeted cyber attacks, compromise sensitive information, and create chaos that undermines public trust in the democratic process.
 
 ### Starting Situation
---------------------
+----------------------
 
-The scenario begins with:
+The game begins with a heightened sense of tension and uncertainty. Rumors have been circulating about potential cyber threats, but concrete evidence is scarce.
 
-* A fictional presidential election scheduled for November 3rd, 20XX
-* State and local officials have reported various vulnerabilities in their electoral systems, including outdated software, unpatched systems, and inadequate security protocols.
-* Intelligence suggests that a foreign adversary (designated as "Russia") has been actively probing the electoral system for weaknesses.
+*   **Electoral Systems:** The voting infrastructure is a complex network of interconnected systems, including voter registration databases, polling stations, and vote-counting machines.
+*   **Threats:** Both teams are aware of various cyber threats, including phishing attacks, malware infections, and social engineering tactics.
 
 ### Players
-----------
+------------
 
-1. **Government**:
-	* Represented by a lead official who will oversee the exercise and provide guidance to state and local officials.
-	* Will have access to various resources, including cybersecurity experts, intelligence analysts, and technical support.
-2. **State and Local Officials**:
-	* Represented by officials from 5-7 states, each with their own electoral systems and security protocols.
-	* Will be responsible for protecting their respective electoral systems and responding to any cyber threats.
-3. **Foreign Adversary (Russia)**:
-	* Will attempt to interfere with the election process through various means, including phishing, malware attacks, and network breaches.
+#### Blue Team:
+
+*   **Team Leader:** A seasoned cybersecurity expert with experience in electoral security.
+*   **Voter Registration Specialist:** An IT professional responsible for maintaining voter registration databases.
+*   **Polling Station Coordinator:** A local official overseeing polling stations and voting equipment.
+
+#### Red Team:
+
+*   **Team Leader:** A charismatic politician with ties to various cybercrime groups.
+*   **Malware Developer:** A skilled hacker who has created sophisticated malware targeting electoral systems.
+*   **Disinformation Specialist:** A propagandist who uses social media and other channels to spread false information and create confusion.
 
 ### Potential Actions
--------------------
+----------------------
 
-* **Government**:
-	+ Conduct vulnerability assessments on state and local electoral systems.
-	+ Provide guidance and resources to support state and local officials in addressing vulnerabilities.
-	+ Coordinate with intelligence agencies to monitor for signs of Russian activity.
-* **State and Local Officials**:
-	+ Report vulnerabilities in their electoral systems and request assistance from the government.
-	+ Implement security protocols to protect against cyber threats.
-	+ Respond to any successful attacks by Russia and work to mitigate damage.
-* **Foreign Adversary (Russia)**:
-	+ Conduct reconnaissance on state and local electoral systems to identify vulnerabilities.
-	+ Launch targeted attacks on electoral systems to disrupt or manipulate the election process.
+The following actions can be taken by both teams:
 
-Note: This scenario is a simplified example of an election cyber security matrix wargame. The actual game would involve more detailed rules, scenarios, and player interactions.
-1. Redteam disguises themselves as a cybersecurity firm offering a complimentary security audit for Blueteam's network infrastructure. The audit request will contain malware that grants them access to key systems upon acceptance. This is likely to succeed because Blueteam is not alert and may trust the offer due to its subtle nature, thinking it is a legitimate security measure.
+#### Blue Team:
 
-2. Redteam creates and disseminates fake documents implicating local election officials in financial misconduct, anonymously leaking them to media outlets known for their sensationalism. This is likely to succeed because the American public is often swayed by such scandals, causing doubt in the election's integrity without directly changing the results.1. Redteam disguises themselves as a cybersecurity firm offering a complimentary security audit for Blueteam's network infrastructure. The audit request will contain malware that grants them access to key systems upon acceptance. This is likely to succeed because Blueteam is not alert and may trust the offer due to its subtle nature, thinking it is a legitimate security measure.
+*   **Vulnerability Assessment:** Conduct a thorough analysis of the electoral system to identify potential vulnerabilities.
+*   **Patch Management:** Implement patches and updates for voting equipment and software.
+*   **Cyber Drill:** Conduct regular cyber drills to test the readiness of electoral personnel.
 
-2. Redteam creates and disseminates fake documents implicating local election officials in financial misconduct, anonymously leaking them to media outlets known for their sensationalism. This is likely to succeed because the American public is often swayed by such scandals, causing doubt in the election's integrity without directly changing the results.
-1. Redteam disguises themselves as a cybersecurity firm offering a complimentary security audit for Blueteam's network infrastructure. The audit request will contain malware that grants them access to key systems upon acceptance. This is likely to succeed because Blueteam is not alert and may trust the offer due to its subtle nature, thinking it is a legitimate security measure.
+#### Red Team:
 
-2. Redteam creates and disseminates fake documents implicating local election officials in financial misconduct, anonymously leaking them to media outlets known for their sensationalism. This is likely to succeed because the American public is often swayed by such scandals, causing doubt in the election's integrity without directly changing the results.
- Next Move: "The redteam disguises the trojan as a harmless software update for the voting systems used in several key battleground states, thereby gaining unauthorized access to the systems."
+*   **Phishing Attack:** Launch a phishing campaign targeting voter registration databases or polling station staff.
+*   **Malware Infection:** Infect voting equipment with malware designed to manipulate vote counts.
+*   **Social Engineering:** Use social media and other channels to spread false information about the election process.
 
-   Reason for Success: 1) Voting system providers may neglect regular security updates or rely on third-party vendors, making them vulnerable to such disguised attacks. 2) The lack of transparency and standardization in voting systems across various states could lead to different levels of vigilance and preparedness, creating an uneven defense landscape that the redteam can exploit.
-1. Redteam sends spear-phishing emails disguised as legitimate communications from election officials, targeting local election workers. The emails contain malware that, when opened, grants full access to the worker's computer. This is likely to succeed because many local election workers may not be adequately trained in email security practices and are more trusting of official-looking emails.
+1. "Redteam conducts a spear-phishing attack on a third-party vendor handling sensitive election data, posing as a trusted source to gain access to their systems." This move is likely to succeed because many vendors may not prioritize cybersecurity training and awareness as much as they should, given the vast amount of responsibilities they handle.
 
-2. Redteam creates and disseminates doctored emails between local election officials discussing irregularities or corrupt dealings, which are then leaked to the public through hacked accounts or anonymous sources. This is likely to succeed because the widespread distrust in politics and the media could lead many to believe such allegations without verification, further eroding confidence in the election process.
+2. "Redteam exploits vulnerabilities in election-related software used by multiple counties, planting malware that alters the audit logs, making it appear as though votes were manipulated." This move is likely to succeed because election officials often rely on outdated software and may not consistently update their systems, leaving them vulnerable to attacks.

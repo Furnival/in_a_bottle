@@ -1,0 +1,42 @@
+body { font:18px "Helvetica Neue", Helvetica, Arial, sans-serif; 
+        color:#222; 
+        scroll-behavior: smooth; 
+    }
+    
+#psub, #ptitle {
+        text-align: center;
+        font-family:Garamond, Georgia, serif
+    }
+
+a {
+        color: #222;
+        text-decoration: none;
+        border-bottom:2px solid #bbb
+    }
+
+a:hover {
+        color: #cc8929;
+        border-color:#cc8929
+    }
+
+a:active {
+        color: #ffb040;
+        border-color:#ffb040
+    }
+
+.quote {
+            font-style: italic;
+            text-align: center;
+            font-size: 90%;
+            padding: 40px;
+            color: grey;
+            width: 400px;
+        }
+
+.center {
+            text-align: center;
+        }
+
+.hidden {
+            display: none;
+        }
